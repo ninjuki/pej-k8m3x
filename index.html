@@ -23,17 +23,8 @@
     color: white;
   }
 
-  header h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-  }
-
-  header p {
-    margin-top: 4px;
-    font-size: 0.9rem;
-    opacity: 0.85;
-  }
+  header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.3px; }
+  header p { margin-top: 4px; font-size: 0.9rem; opacity: 0.85; }
 
   .badge {
     display: inline-block;
@@ -46,9 +37,27 @@
     letter-spacing: 0.3px;
   }
 
-  .section {
-    margin-bottom: 20px;
+  .sync-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    opacity: 0.8;
+    margin-top: 8px;
   }
+
+  .sync-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #aed581;
+    flex-shrink: 0;
+  }
+  .sync-dot.loading { background: #fff176; animation: pulse 1s infinite; }
+  .sync-dot.error { background: #ef9a9a; }
+
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  .section { margin-bottom: 20px; }
 
   .section-title {
     font-size: 0.7rem;
@@ -86,17 +95,14 @@
   .item.done .checkbox::after {
     content: '';
     display: block;
-    width: 6px;
-    height: 10px;
+    width: 6px; height: 10px;
     border: 2px solid white;
-    border-top: none;
-    border-left: none;
+    border-top: none; border-left: none;
     transform: rotate(45deg) translate(-1px, -1px);
   }
 
   .checkbox {
-    width: 22px;
-    height: 22px;
+    width: 22px; height: 22px;
     border-radius: 6px;
     border: 2px solid #b0bec5;
     flex-shrink: 0;
@@ -107,18 +113,8 @@
     transition: all 0.15s;
   }
 
-  .label {
-    font-size: 0.92rem;
-    font-weight: 500;
-    line-height: 1.35;
-  }
-
-  .sublabel {
-    font-size: 0.78rem;
-    color: #78909c;
-    margin-top: 2px;
-    font-weight: 400;
-  }
+  .label { font-size: 0.92rem; font-weight: 500; line-height: 1.35; }
+  .sublabel { font-size: 0.78rem; color: #78909c; margin-top: 2px; font-weight: 400; }
 
   .info-card {
     background: white;
@@ -135,9 +131,7 @@
     font-size: 0.88rem;
     border-bottom: 1px solid #f0f4f8;
   }
-
   .info-row:last-child { border-bottom: none; }
-
   .info-label { color: #78909c; }
   .info-value { font-weight: 600; color: #1a2740; }
   .info-value.blue { color: #1565C0; }
@@ -152,7 +146,6 @@
     align-items: center;
     margin-bottom: 20px;
   }
-
   .price-banner .plabel { font-size: 0.85rem; opacity: 0.85; }
   .price-banner .amount { font-size: 1.8rem; font-weight: 800; }
   .price-banner .detail { font-size: 0.72rem; opacity: 0.75; margin-top: 2px; }
@@ -164,7 +157,6 @@
     margin-top: 10px;
     overflow: hidden;
   }
-
   .progress-fill {
     height: 100%;
     background: #1e88e5;
@@ -172,7 +164,6 @@
     transition: width 0.4s ease;
     width: 0%;
   }
-
   .progress-label {
     font-size: 0.75rem;
     color: #78909c;
@@ -187,6 +178,10 @@
   <h1>🚗 Permis de conduire</h1>
   <p>Auto-école C'PERMIS — Cormeilles-en-Parisis</p>
   <span class="badge">AAC · Boîte manuelle · 1 500 €</span>
+  <div class="sync-status">
+    <div class="sync-dot loading" id="sync-dot"></div>
+    <span id="sync-label">Connexion…</span>
+  </div>
 </header>
 
 <div class="price-banner">
@@ -203,42 +198,42 @@
 <div class="section">
   <div class="section-title">Documents à rassembler</div>
   <div class="card">
-    <div class="item" onclick="toggle(this)">
+    <div class="item" data-key="photos" onclick="toggle(this)">
       <div class="checkbox"></div>
       <div>
         <div class="label">4 e-photos A.N.T.S</div>
         <div class="sublabel">Sur ephoto.fr ou pharmacie agréée · avec lunettes si besoin</div>
       </div>
     </div>
-    <div class="item" onclick="toggle(this)">
+    <div class="item" data-key="cni" onclick="toggle(this)">
       <div class="checkbox"></div>
       <div>
         <div class="label">Photocopie CNI ou passeport du candidat</div>
         <div class="sublabel">Recto / verso</div>
       </div>
     </div>
-    <div class="item" onclick="toggle(this)">
+    <div class="item" data-key="cni-parent" onclick="toggle(this)">
       <div class="checkbox"></div>
       <div>
-        <div class="label">Photocopie de ta propre pièce d'identité</div>
+        <div class="label">Photocopie de la pièce d'identité du parent</div>
         <div class="sublabel">Obligatoire pour les mineurs</div>
       </div>
     </div>
-    <div class="item" onclick="toggle(this)">
+    <div class="item" data-key="domicile" onclick="toggle(this)">
       <div class="checkbox"></div>
       <div>
         <div class="label">Justificatif de domicile</div>
         <div class="sublabel">Moins de 3 mois · facture EDF, eau, téléphone…</div>
       </div>
     </div>
-    <div class="item" onclick="toggle(this)">
+    <div class="item" data-key="assr2" onclick="toggle(this)">
       <div class="checkbox"></div>
       <div>
         <div class="label">ASSR 2</div>
         <div class="sublabel">Attestation scolaire de sécurité routière · à retrouver ou demander au lycée</div>
       </div>
     </div>
-    <div class="item" onclick="toggle(this)">
+    <div class="item" data-key="jdc" onclick="toggle(this)">
       <div class="checkbox"></div>
       <div>
         <div class="label">Attestation JDC (journée d'appel)</div>
@@ -253,21 +248,21 @@
 <div class="section">
   <div class="section-title">Actions à faire</div>
   <div class="card">
-    <div class="item" onclick="toggle(this)">
+    <div class="item" data-key="inscription" onclick="toggle(this)">
       <div class="checkbox"></div>
       <div>
         <div class="label">Se rendre à C'PERMIS pour s'inscrire</div>
         <div class="sublabel">Samedi 10h–13h · 3 Avenue Foch, Cormeilles</div>
       </div>
     </div>
-    <div class="item" onclick="toggle(this)">
+    <div class="item" data-key="code-ligne" onclick="toggle(this)">
       <div class="checkbox"></div>
       <div>
         <div class="label">Activer l'accès code en ligne</div>
         <div class="sublabel">Inclus dans le forfait · à démarrer dès l'inscription</div>
       </div>
     </div>
-    <div class="item" onclick="toggle(this)">
+    <div class="item" data-key="simulateur" onclick="toggle(this)">
       <div class="checkbox"></div>
       <div>
         <div class="label">Planifier les séances simulateur</div>
@@ -312,9 +307,68 @@
 </div>
 
 <script>
-  function toggle(el) {
-    el.classList.toggle('done');
+  const FIREBASE_URL = 'https://permis-ewen-default-rtdb.europe-west1.firebasedatabase.app/checklist.json';
+  let state = {};
+  let saving = false;
+
+  function setSyncStatus(status) {
+    const dot = document.getElementById('sync-dot');
+    const label = document.getElementById('sync-label');
+    dot.className = 'sync-dot';
+    if (status === 'ok') { label.textContent = 'Synchronisé'; }
+    else if (status === 'saving') { dot.classList.add('loading'); label.textContent = 'Enregistrement…'; }
+    else if (status === 'loading') { dot.classList.add('loading'); label.textContent = 'Chargement…'; }
+    else if (status === 'error') { dot.classList.add('error'); label.textContent = 'Erreur de sync'; }
+  }
+
+  async function loadFromFirebase() {
+    setSyncStatus('loading');
+    try {
+      const res = await fetch(FIREBASE_URL);
+      const data = await res.json();
+      if (data) {
+        state = data;
+        applyState();
+      }
+      setSyncStatus('ok');
+    } catch(e) {
+      setSyncStatus('error');
+    }
+  }
+
+  async function saveToFirebase() {
+    if (saving) return;
+    saving = true;
+    setSyncStatus('saving');
+    try {
+      await fetch(FIREBASE_URL, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(state)
+      });
+      setSyncStatus('ok');
+    } catch(e) {
+      setSyncStatus('error');
+    }
+    saving = false;
+  }
+
+  function applyState() {
+    document.querySelectorAll('.item[data-key]').forEach(el => {
+      const key = el.dataset.key;
+      if (state[key]) el.classList.add('done');
+      else el.classList.remove('done');
+    });
     updateProgress();
+  }
+
+  function toggle(el) {
+    const key = el.dataset.key;
+    if (!key) return;
+    el.classList.toggle('done');
+    state[key] = el.classList.contains('done');
+    updateProgress();
+    saveToFirebase();
   }
 
   function updateProgress() {
@@ -324,6 +378,8 @@
     document.getElementById('prog').style.width = pct + '%';
     document.getElementById('prog-label').textContent = done.length + ' / ' + all.length + ' documents prêts';
   }
+
+  loadFromFirebase();
 </script>
 </body>
 </html>
