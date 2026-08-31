@@ -6,170 +6,41 @@
 <title>Permis de conduire – C'PERMIS</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background: #f0f4f8;
-    min-height: 100vh;
-    padding: 24px 16px 40px;
-    color: #1a2740;
-  }
-
-  header {
-    background: linear-gradient(135deg, #1565C0, #1e88e5);
-    border-radius: 16px;
-    padding: 24px 20px;
-    margin-bottom: 24px;
-    color: white;
-  }
-
-  header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.3px; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f4f8; min-height: 100vh; padding: 24px 16px 40px; color: #1a2740; }
+  header { background: linear-gradient(135deg, #1565C0, #1e88e5); border-radius: 16px; padding: 24px 20px; margin-bottom: 24px; color: white; }
+  header h1 { font-size: 1.5rem; font-weight: 700; }
   header p { margin-top: 4px; font-size: 0.9rem; opacity: 0.85; }
-
-  .badge {
-    display: inline-block;
-    background: rgba(255,255,255,0.2);
-    border-radius: 20px;
-    padding: 4px 12px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    margin-top: 10px;
-    letter-spacing: 0.3px;
-  }
-
-  .sync-status {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.72rem;
-    opacity: 0.8;
-    margin-top: 8px;
-  }
-
-  .sync-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: #aed581;
-    flex-shrink: 0;
-  }
+  .badge { display: inline-block; background: rgba(255,255,255,0.2); border-radius: 20px; padding: 4px 12px; font-size: 0.78rem; font-weight: 600; margin-top: 10px; }
+  .sync-status { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; opacity: 0.8; margin-top: 8px; }
+  .sync-dot { width: 7px; height: 7px; border-radius: 50%; background: #aed581; flex-shrink: 0; }
   .sync-dot.loading { background: #fff176; animation: pulse 1s infinite; }
   .sync-dot.error { background: #ef9a9a; }
-
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
   .section { margin-bottom: 20px; }
-
-  .section-title {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: #1565C0;
-    margin-bottom: 10px;
-    padding-left: 4px;
-  }
-
-  .card {
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-  }
-
-  .item {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 14px 16px;
-    border-bottom: 1px solid #f0f4f8;
-    cursor: pointer;
-    transition: background 0.15s;
-    -webkit-tap-highlight-color: transparent;
-  }
-
+  .section-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #1565C0; margin-bottom: 10px; padding-left: 4px; }
+  .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+  .item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px; border-bottom: 1px solid #f0f4f8; cursor: pointer; transition: background 0.15s; -webkit-tap-highlight-color: transparent; }
   .item:last-child { border-bottom: none; }
   .item:active { background: #f0f4f8; }
-
   .item.done .label { color: #90a4ae; text-decoration: line-through; }
   .item.done .checkbox { background: #1e88e5; border-color: #1e88e5; }
-  .item.done .checkbox::after {
-    content: '';
-    display: block;
-    width: 6px; height: 10px;
-    border: 2px solid white;
-    border-top: none; border-left: none;
-    transform: rotate(45deg) translate(-1px, -1px);
-  }
-
-  .checkbox {
-    width: 22px; height: 22px;
-    border-radius: 6px;
-    border: 2px solid #b0bec5;
-    flex-shrink: 0;
-    margin-top: 1px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-  }
-
+  .item.done .checkbox::after { content: ''; display: block; width: 6px; height: 10px; border: 2px solid white; border-top: none; border-left: none; transform: rotate(45deg) translate(-1px, -1px); }
+  .checkbox { width: 22px; height: 22px; border-radius: 6px; border: 2px solid #b0bec5; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
   .label { font-size: 0.92rem; font-weight: 500; line-height: 1.35; }
-  .sublabel { font-size: 0.78rem; color: #78909c; margin-top: 2px; font-weight: 400; }
-
-  .info-card {
-    background: white;
-    border-radius: 12px;
-    padding: 16px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-  }
-
-  .info-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6px 0;
-    font-size: 0.88rem;
-    border-bottom: 1px solid #f0f4f8;
-  }
+  .sublabel { font-size: 0.78rem; color: #78909c; margin-top: 2px; }
+  .info-card { background: white; border-radius: 12px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+  .info-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: 0.88rem; border-bottom: 1px solid #f0f4f8; }
   .info-row:last-child { border-bottom: none; }
   .info-label { color: #78909c; }
   .info-value { font-weight: 600; color: #1a2740; }
   .info-value.blue { color: #1565C0; }
-
-  .price-banner {
-    background: linear-gradient(135deg, #1b5e20, #2e7d32);
-    border-radius: 12px;
-    padding: 16px 20px;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
+  .price-banner { background: linear-gradient(135deg, #1b5e20, #2e7d32); border-radius: 12px; padding: 16px 20px; color: white; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
   .price-banner .plabel { font-size: 0.85rem; opacity: 0.85; }
   .price-banner .amount { font-size: 1.8rem; font-weight: 800; }
   .price-banner .detail { font-size: 0.72rem; opacity: 0.75; margin-top: 2px; }
-
-  .progress-bar {
-    background: #e3f2fd;
-    border-radius: 8px;
-    height: 8px;
-    margin-top: 10px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: #1e88e5;
-    border-radius: 8px;
-    transition: width 0.4s ease;
-    width: 0%;
-  }
-  .progress-label {
-    font-size: 0.75rem;
-    color: #78909c;
-    margin-top: 6px;
-    text-align: right;
-  }
+  .progress-bar { background: #e3f2fd; border-radius: 8px; height: 8px; margin-top: 10px; overflow: hidden; }
+  .progress-fill { height: 100%; background: #1e88e5; border-radius: 8px; transition: width 0.4s ease; width: 0%; }
+  .progress-label { font-size: 0.75rem; color: #78909c; margin-top: 6px; text-align: right; }
 </style>
 </head>
 <body>
@@ -177,12 +48,151 @@
 <header>
   <h1>🚗 Permis de conduire</h1>
   <p>Auto-école C'PERMIS — Cormeilles-en-Parisis</p>
-  <span class="badge">AAC · Boîte manuelle · 1 500 €</span>
+  <span class="badge">AAC · Boîte manuelle · 1 350 €</span>
   <div class="sync-status">
     <div class="sync-dot loading" id="sync-dot"></div>
     <span id="sync-label">Connexion…</span>
   </div>
 </header>
+
+<div class="price-banner">
+  <div>
+    <div class="plabel">Forfait AAC boîte manuelle</div>
+    <div class="detail">20h incluses (5h simulateur + 15h voiture) · code en ligne 2 mois</div>
+  </div>
+  <div style="text-align:right">
+    <div style="text-decoration:line-through;opacity:0.6;font-size:1rem;">1 500€</div>
+    <div class="amount">1 350€</div>
+    <div class="detail">offre rentrée sept. · + 1h éval. (59€)</div>
+  </div>
+</div>
+
+<!-- ACTIONS EN PREMIER -->
+<div class="section">
+  <div class="section-title">Actions à faire</div>
+  <div class="card">
+    <div class="item" data-key="inscription" onclick="toggle(this)">
+      <div class="checkbox"></div>
+      <div>
+        <div class="label">Se rendre à C'PERMIS pour s'inscrire</div>
+        <div class="sublabel">Samedi 10h–13h · 3 Avenue Foch, Cormeilles</div>
+      </div>
+    </div>
+    <div class="item" data-key="code-ligne" onclick="toggle(this)">
+      <div class="checkbox"></div>
+      <div>
+        <div class="label">Activer l'accès code en ligne</div>
+        <div class="sublabel">Inclus dans le forfait · à démarrer dès l'inscription</div>
+      </div>
+    </div>
+    <div class="item" data-key="simulateur" onclick="toggle(this)">
+      <div class="checkbox"></div>
+      <div>
+        <div class="label">Planifier les séances simulateur</div>
+        <div class="sublabel">5h initiales incluses · illimitées ensuite</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DOCUMENTS EN SECOND -->
+<div class="section">
+  <div class="section-title">Documents à rassembler</div>
+  <div class="card">
+    <div class="item" data-key="photos" onclick="toggle(this)">
+      <div class="checkbox"></div>
+      <div>
+        <div class="label">4 e-photos A.N.T.S</div>
+        <div class="sublabel">Sur ephoto.fr ou pharmacie agréée · avec lunettes si besoin</div>
+      </div>
+    </div>
+    <div class="item" data-key="cni" onclick="toggle(this)">
+      <div class="checkbox"></div>
+      <div>
+        <div class="label">Photocopie CNI ou passeport du candidat</div>
+        <div class="sublabel">Recto / verso</div>
+      </div>
+    </div>
+    <div class="item" data-key="cni-parent" onclick="toggle(this)">
+      <div class="checkbox"></div>
+      <div>
+        <div class="label">Photocopie de la pièce d'identité du parent</div>
+        <div class="sublabel">Obligatoire pour les mineurs</div>
+      </div>
+    </div>
+    <div class="item" data-key="domicile" onclick="toggle(this)">
+      <div class="checkbox"></div>
+      <div>
+        <div class="label">Justificatif de domicile</div>
+        <div class="sublabel">Moins de 3 mois · facture EDF, eau, téléphone…</div>
+      </div>
+    </div>
+    <div class="item" data-key="assr2" onclick="toggle(this)">
+      <div class="checkbox"></div>
+      <div>
+        <div class="label">ASSR 2</div>
+        <div class="sublabel">Attestation scolaire de sécurité routière · à retrouver ou demander au collège</div>
+      </div>
+    </div>
+    <div class="item" data-key="jdc" onclick="toggle(this)">
+      <div class="checkbox"></div>
+      <div>
+        <div class="label">Attestation JDC (journée d'appel)</div>
+        <div class="sublabel">Obligatoire 17–25 ans · si déjà effectuée</div>
+      </div>
+    </div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+  <div class="progress-label" id="prog-label">0 / 6 documents prêts</div>
+</div>
+
+<!-- INFOS AUTO-ÉCOLE -->
+<div class="section">
+  <div class="section-title">Infos auto-école</div>
+  <div class="info-card">
+    <div class="info-row">
+      <span class="info-label">Adresse</span>
+      <span class="info-value">3 Av. Foch, Cormeilles</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Téléphone</span>
+      <span class="info-value blue">01 48 29 15 51</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Bureau lundi</span>
+      <span class="info-value">15h – 19h</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Bureau mar–ven</span>
+      <span class="info-value">10h–13h / 15h–19h</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Bureau samedi</span>
+      <span class="info-value">10h – 13h</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Heure sup (BM)</span>
+      <span class="info-value">59€ / heure</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Instagram</span>
+      <span class="info-value blue">@cpermis95</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Site web</span>
+      <a href="https://www.cpermis-cormeilles.fr" target="_blank" class="info-value blue" style="text-decoration:none">cpermis-cormeilles.fr</a>
+    </div>
+  </div>
+</div>
+
+<!-- OFFRE RENTRÉE -->
+<div style="background:#e8f5e9;border:1.5px solid #66bb6a;border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;">
+  <span style="font-size:1.3rem">&#127881;</span>
+  <div>
+    <div style="font-size:0.82rem;font-weight:700;color:#2e7d32;">Offre spéciale rentrée septembre</div>
+    <div style="font-size:0.78rem;color:#1b5e20;margin-top:2px;">-150€ sur le forfait AAC · valable du <strong>1er au 30 septembre</strong><br>Code en ligne offert pour toute inscription pendant la période</div>
+  </div>
+</div>
 
 <script>
   const FIREBASE_URL = 'https://pej-k8m3x-default-rtdb.europe-west1.firebasedatabase.app/checklist.json';
@@ -204,14 +214,9 @@
     try {
       const res = await fetch(FIREBASE_URL);
       const data = await res.json();
-      if (data) {
-        state = data;
-        applyState();
-      }
+      if (data) { state = data; applyState(); }
       setSyncStatus('ok');
-    } catch(e) {
-      setSyncStatus('error');
-    }
+    } catch(e) { setSyncStatus('error'); }
   }
 
   async function saveToFirebase() {
@@ -219,22 +224,15 @@
     saving = true;
     setSyncStatus('saving');
     try {
-      await fetch(FIREBASE_URL, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(state)
-      });
+      await fetch(FIREBASE_URL, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(state) });
       setSyncStatus('ok');
-    } catch(e) {
-      setSyncStatus('error');
-    }
+    } catch(e) { setSyncStatus('error'); }
     saving = false;
   }
 
   function applyState() {
     document.querySelectorAll('.item[data-key]').forEach(el => {
-      const key = el.dataset.key;
-      if (state[key]) el.classList.add('done');
+      if (state[el.dataset.key]) el.classList.add('done');
       else el.classList.remove('done');
     });
     updateProgress();
@@ -250,8 +248,8 @@
   }
 
   function updateProgress() {
-    const all = document.querySelectorAll('.section:first-of-type .item');
-    const done = document.querySelectorAll('.section:first-of-type .item.done');
+    const all = document.querySelectorAll('.section:nth-of-type(2) .item');
+    const done = document.querySelectorAll('.section:nth-of-type(2) .item.done');
     const pct = Math.round((done.length / all.length) * 100);
     document.getElementById('prog').style.width = pct + '%';
     document.getElementById('prog-label').textContent = done.length + ' / ' + all.length + ' documents prêts';
@@ -259,14 +257,5 @@
 
   loadFromFirebase();
 </script>
-
-<div style="background:#e8f5e9;border:1.5px solid #66bb6a;border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;">
-  <span style="font-size:1.3rem">&#127881;</span>
-  <div>
-    <div style="font-size:0.82rem;font-weight:700;color:#2e7d32;">Offre sp&#233;ciale rentr&#233;e septembre</div>
-    <div style="font-size:0.78rem;color:#1b5e20;margin-top:2px;">-150&#8364; sur le forfait AAC &middot; valable du <strong>1er au 30 septembre</strong><br>Code en ligne offert pour toute inscription pendant la p&#233;riode</div>
-  </div>
-</div>
-
 </body>
 </html>
